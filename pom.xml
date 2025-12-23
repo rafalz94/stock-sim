@@ -20,9 +20,9 @@
 
     <modules>
         <!-- Modules will be added here as we create them -->
-        <!-- <module>discovery-server</module> -->
-        <!-- <module>api-gateway</module> -->
-        <!-- <module>market-data-service</module> -->
+        <module>discovery-server</module>
+        <module>api-gateway</module>
+        <module>market-data-service</module>
         <!-- <module>order-service</module> -->
         <!-- <module>wallet-service</module> -->
         <!-- <module>matching-engine</module> -->
