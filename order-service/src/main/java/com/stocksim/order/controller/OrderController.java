@@ -4,6 +4,7 @@ import com.stocksim.order.model.Order;
 import com.stocksim.order.model.OrderSide;
 import com.stocksim.order.model.OrderStatus;
 import com.stocksim.order.repository.OrderRepository;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +26,8 @@ public class OrderController {
 
     @PostMapping
     public Order placeOrder(@RequestBody OrderRequest request) {
-        // 1. Save to DB
         Order order = Order.builder()
-                .userId(UUID.randomUUID()) // Mock user ID for now
+                .userId(UUID.randomUUID())
                 .symbol(request.getSymbol())
                 .side(request.getSide())
                 .quantity(request.getQuantity())
@@ -39,7 +39,6 @@ public class OrderController {
         orderRepository.save(order);
         log.info("Order saved: {}", order.getId());
 
-        // 2. Publish to Kafka
         OrderEvent event = new OrderEvent(
                 order.getId(),
                 order.getUserId(),

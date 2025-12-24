@@ -33,7 +33,6 @@ public class PriceGeneratorService {
     @Value("${finnhub.symbols}")
     private String[] symbols;
 
-    // Current prices (Updated from API or Simulation)
     private final Map<String, Double> stockPrices = new ConcurrentHashMap<>();
 
     /**
@@ -45,7 +44,6 @@ public class PriceGeneratorService {
         for (String symbol : symbols) {
             try {
                 String url = apiUrl + symbol + "&token=" + apiToken;
-                // Finnhub response: {"c": 150.5, "d": ...} where 'c' is current price
                 Map response = restTemplate.getForObject(url, Map.class);
                 
                 if (response != null && response.get("c") != null) {
@@ -67,16 +65,13 @@ public class PriceGeneratorService {
     @Scheduled(fixedRate = 1000)
     public void streamPrices() {
         stockPrices.forEach((symbol, currentPrice) -> {
-            // Fluctuate price by -0.2% to +0.2% (Micro-movements)
             double changePercent = (random.nextDouble() - 0.5) * 0.004;
             double newPrice = currentPrice * (1 + changePercent);
             
-            // Round to 2 decimals
             newPrice = BigDecimal.valueOf(newPrice)
                     .setScale(2, RoundingMode.HALF_UP)
                     .doubleValue();
             
-            // Update map so next simulation uses this new base
             stockPrices.put(symbol, newPrice);
 
             StockPrice priceUpdate = new StockPrice(symbol, newPrice, System.currentTimeMillis());
