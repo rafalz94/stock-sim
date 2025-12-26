@@ -9,6 +9,12 @@ spring:
       discovery:
         locator:
           enabled: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedMethods: "*"
+            allowedHeaders: "*"
       routes:
         - id: order-service
           uri: lb://ORDER-SERVICE
@@ -20,6 +26,11 @@ spring:
           predicates:
             - Path=/api/market/**
         
+        - id: market-ws
+          uri: lb://MARKET-DATA-SERVICE
+          predicates:
+            - Path=/ws/**
+
         - id: wallet-service
           uri: lb://WALLET-SERVICE
           predicates:
