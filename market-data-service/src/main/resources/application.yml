@@ -9,6 +9,12 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: market-ws-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
 
 eureka:
   client:
@@ -16,6 +22,6 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 
 finnhub:
-  token: ${FINNHUB_TOKEN}
+  # token: removed to use java default
   api-url: https://finnhub.io/api/v1/quote?symbol=
   symbols: AAPL,GOOGL,AMZN,TSLA,MSFT

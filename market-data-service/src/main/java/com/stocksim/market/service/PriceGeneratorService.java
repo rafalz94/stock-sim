@@ -24,8 +24,8 @@ public class PriceGeneratorService {
     private final RestTemplate restTemplate = new RestTemplate();
     private final Random random = new Random();
 
-    @Value("${finnhub.token}")
-    private String apiToken;
+    // @Value("${finnhub.token}")
+    private String apiToken = "d55hjm1r01qu4ccgs86gd55hjm1r01qu4ccgs870";
 
     @Value("${finnhub.api-url}")
     private String apiUrl;
@@ -45,7 +45,7 @@ public class PriceGeneratorService {
             try {
                 String url = apiUrl + symbol + "&token=" + apiToken;
                 Map response = restTemplate.getForObject(url, Map.class);
-                
+
                 if (response != null && response.get("c") != null) {
                     Object priceObj = response.get("c");
                     Double price = Double.valueOf(priceObj.toString());
@@ -67,11 +67,11 @@ public class PriceGeneratorService {
         stockPrices.forEach((symbol, currentPrice) -> {
             double changePercent = (random.nextDouble() - 0.5) * 0.004;
             double newPrice = currentPrice * (1 + changePercent);
-            
+
             newPrice = BigDecimal.valueOf(newPrice)
                     .setScale(2, RoundingMode.HALF_UP)
                     .doubleValue();
-            
+
             stockPrices.put(symbol, newPrice);
 
             StockPrice priceUpdate = new StockPrice(symbol, newPrice, System.currentTimeMillis());

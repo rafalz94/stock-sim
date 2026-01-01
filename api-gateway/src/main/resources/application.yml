@@ -30,6 +30,8 @@ spring:
           uri: lb://MARKET-DATA-SERVICE
           predicates:
             - Path=/ws/**
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
 
         - id: wallet-service
           uri: lb://WALLET-SERVICE
