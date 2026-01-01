@@ -16,11 +16,6 @@ spring:
             allowedMethods: "*"
             allowedHeaders: "*"
       routes:
-        - id: order-service
-          uri: lb://ORDER-SERVICE
-          predicates:
-            - Path=/api/orders/**
-        
         - id: market-data-service
           uri: lb://MARKET-DATA-SERVICE
           predicates:
@@ -32,11 +27,6 @@ spring:
             - Path=/ws/**
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
-
-        - id: wallet-service
-          uri: lb://WALLET-SERVICE
-          predicates:
-            - Path=/api/wallet/**
 
         - id: discovery-server
           uri: http://localhost:8761

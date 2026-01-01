@@ -23,8 +23,6 @@
         <module>discovery-server</module>
         <module>api-gateway</module>
         <module>market-data-service</module>
-        <module>order-service</module>
-        <module>matching-engine</module>
         <!-- <module>wallet-service</module> -->
     </modules>
 
