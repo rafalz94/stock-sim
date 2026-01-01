@@ -24,8 +24,8 @@ public class PriceGeneratorService {
     private final RestTemplate restTemplate = new RestTemplate();
     private final Random random = new Random();
 
-    // @Value("${finnhub.token}")
-    private String apiToken = "d55hjm1r01qu4ccgs86gd55hjm1r01qu4ccgs870";
+    @Value("${finnhub.token}")
+    private String apiToken;
 
     @Value("${finnhub.api-url}")
     private String apiUrl;
