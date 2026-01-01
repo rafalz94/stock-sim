@@ -26,9 +26,7 @@ The system is built on a distributed microservices event-driven architecture:
     *   Next.js 14 App Router + Tailwind CSS.
     *   Connects to WebSocket to render live "Red/Green" price cards.
 5.  **Infrastructure**:
-    *   **Kafka + Zookeeper**: Event backbone.
-    *   **PostgreSQL**: (Optional) Persistence for orders.
-    *   **Redis**: (Optional) Cache.
+    *   **Kafka + Zookeeper**: Event backbone using Confluent images.
 
 ## 🚀 Tech Stack
 
@@ -47,7 +45,7 @@ The system is built on a distributed microservices event-driven architecture:
 *   **Maven**
 
 ### 1. Start Infrastructure
-Spin up Kafka, Zookeeper, and Postgres:
+Spin up Kafka and Zookeeper:
 ```bash
 docker-compose up -d
 ```
@@ -75,12 +73,7 @@ You should see:
 *   "Live Feed" indicator (Green).
 *   Real-time flashing price cards for AAPL, GOOGL, MSFT, etc.
 
-## 🧪 Testing
 
-The project includes Unit Tests for the Matching Engine logic (Order Book).
-```bash
-mvn test -pl matching-engine
-```
 
 ## 🔐 Security Note
 The project uses a default API token for Finnhub for demonstration purposes. In a production environment, this should be injected via the `FINNHUB_TOKEN` environment variable.
